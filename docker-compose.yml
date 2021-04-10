@@ -1,0 +1,35 @@
+version: '3.4'
+services:
+
+  # coredns server
+  coredns:
+    image: coredns/coredns
+    command: -conf /etc/coredns/Corefile
+    restart: unless-stopped
+    # ports:
+    #   - '53:53'
+    #   - '53:53/udp'
+    # better performance for udp requests:
+    network_mode: host
+    volumes:
+      - './config:/etc/coredns'
+
+  # web gateway: authentification and reverse proxy
+  gateway:
+    image: nginx
+    restart: unless-stopped
+    ports:
+      - 80:80
+    volumes:
+      - './config/dynamic/default.conf:/etc/nginx/conf.d/default.conf:ro'
+      - './config/dynamic/htpasswd:/etc/nginx/conf.d/htpasswd:ro'
+
+  # webhook that triggers ip address update
+  webhook:
+    image: almir/webhook
+    command: -verbose -hooks=/etc/webhook/hooks.json -hotreload
+    restart: unless-stopped
+    volumes:
+      - './config/dynamic/webhook.json:/etc/webhook/hooks.json:ro'
+      - './scripts/dyn.sh:/app/dyn.sh:ro'
+      - './config/zones/example.com/db.example.com.dyn:/zonefile'

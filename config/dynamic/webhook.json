@@ -1,0 +1,14 @@
+[
+  {
+    "id": "update",
+    "execute-command": "/app/dyn.sh",
+    "pass-arguments-to-command":
+    [
+      {
+        "source": "query",
+        "name": "ip"
+      }
+    ],
+    "response-message": "Success"
+  }
+]

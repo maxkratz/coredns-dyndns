@@ -1,0 +1,19 @@
+$ORIGIN dyn.example.com.
+$TTL 300
+
+; SOA Record
+@       3600            IN      SOA     ns1.example.com.   hostmaster.example.com. (
+ 2021012220; serial
+ 7200      ; refresh (7200 = 2 hours)
+ 3600      ; retry (3600 = 1 hour)
+ 1209600   ; expire (1209600 = 2 weeks)
+ 3600      ; minimum (3600 = 1 hour)
+ )
+
+; NS Records
+@       3600            IN      NS      ns1.example.com.
+@       3600            IN      NS      ns2.example.com.
+@       3600            IN      NS      ns3.example.com.
+
+; A / AAAA Records
+@ IN A 7.7.7.7

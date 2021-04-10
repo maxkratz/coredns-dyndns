@@ -1,0 +1,21 @@
+example.com:53 {
+        root /etc/coredns/zones/example.com
+        file db.example.com example.com
+
+        errors
+        log
+
+        reload
+        erratic
+}
+
+dyn.example.com:53 {
+        root /etc/coredns/zones/example.com
+        file db.example.com.dyn dyn.example.com
+
+        errors
+        log
+
+        reload
+        erratic
+}
