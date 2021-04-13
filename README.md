@@ -51,16 +51,16 @@ This example can easily be used to update a dynamic zone with your [OPNsense](ht
 In your OPNsense box go to *Services* -> *Dynamic DNS* and click on *(+) Add*.
 Configure the following settings:
 
-| Field                           | Value                                            | Explanation                              |
-| ------------------------------- | ------------------------------------------------ | ---------------------------------------- |
-| *Enable*                        | Checked                                          | Enables this update client               |
-| *Service type*                  | Custom                                           | -                                        |
-| *Interface to monitor*          | E.g. *WAN*                                       | Interface on which the dynamic IP occurs |
-| *Interface to send update from* | E.g. *WAN*                                       | Same as *Service type*                   |
-| *Hostname*                      | dyn.example.com                                  | Your dynamic zone to update              |
-| *Verbose logging*               | Unchecked                                        | May be checked for debugging purposes    |
-| *CURL options*                  | Both unchecked                                   | -                                        |
-| *Username*                      | abc                                              | Your user name for basic auth            |
-| *Password*                      | 123                                              | Your password for basic auth             |
-| *Update URL*                    | https://dyn.ns1.example.com/hooks/update?ip=%IP% | Webhook URL to send IP update to         |
-| *Result Match*                  | [empty]                                          | -                                        |
+| Field                           | Value                                            | Explanation                                  |
+| ------------------------------- | ------------------------------------------------ | -------------------------------------------- |
+| *Enable*                        | Checked                                          | Enables this update client                   |
+| *Service type*                  | Custom                                           | -                                            |
+| *Interface to monitor*          | E.g. *WAN*                                       | Interface on which the dynamic IP occurs     |
+| *Interface to send update from* | E.g. *WAN*                                       | Same as *Service type*                       |
+| *Hostname*                      | dyn.example.com                                  | Your dynamic zone to update                  |
+| *Verbose logging*               | Unchecked                                        | May be checked for debugging purposes        |
+| *CURL options*                  | Both unchecked                                   | -                                            |
+| *Username*                      | example                                          | Your username for basic auth from *htpasswd* |
+| *Password*                      | 0123456789                                       | Your password for basic auth from *htpasswd* |
+| *Update URL*                    | https://dyn.ns1.example.com/hooks/update?ip=%IP% | Webhook URL to send IP update to             |
+| *Result Match*                  | [empty]                                          | -                                            |
