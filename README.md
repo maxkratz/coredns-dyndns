@@ -34,7 +34,8 @@ Feel free to adapt the needed steps to e.g. a native installation (with binaries
     - Three nameserver records for the root zone `example.com` --> These values will not change at all.
     - Three nameserver records for the dynamic zone `dyn.example.com` --> This is the zone that will be updated by web hooks. The records deligate all queries from DNS clients to the CoreDNS server specified for this zone. (It then will handle all DNS queries for the dynamic zone.)
         - In this example, the root zone will also be served by your CoreDNS server. Keep in mind that this is absolutely not neccessary! You just have to deligate the dynamic zone.
-- Use [db.example.com.dyn](./config/zones/example.com/db.example.com.dyn) to create the dynamic zone. This file will get updated via the sh script.
+- Copy [db.example.com.dyn.template](./config/zones/example.com/db.example.com.dyn) to `db.example.com.dyn`. (This ensures that git does not track your dynamic updates.)
+- Use `db.example.com.dyn` to create the dynamic zone. This file will get updated via the sh script.
 - Please notice: At least, you have to change all occurences of `example.com` to your own domain in all config/zone files!
 
 After you've adapted the configuration files to your needs, start the Docker-Compose stack:
