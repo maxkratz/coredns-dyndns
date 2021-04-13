@@ -2,11 +2,28 @@
 
 set -e
 
-# Get ip from parameter
+# Get IP from parameter
 IP=$1
-echo "Update ip to $IP."
 
-# Replace old ip from zonefile by new ip, use tee instead of sed -i
+# Check if provided parameter was empty
+if [ -z "$IP" ]
+then
+    echo "=> No IP provided. Aborting." >&2 
+    exit 1;
+fi
+
+# Check if IP is valid
+IP_REGEX="^((25[0-5]|2[0-4][0-9]|[1]?[1-9][0-9]?).){3}(25[0-5]|2[0-4][0-9]|[1]?[1-9]?[0-9])$"
+VALID=$(echo $IP | grep -oE "$IP_REGEX" || true)
+if [ -z "$VALID" ]
+then
+    echo "=> Provided IP is not a valid IPv4 address. Aborting." >&2 
+    exit 2;
+else
+    echo "=> Update ip to $IP."
+fi
+
+# Replace old IP from zonefile by new IP, use tee instead of sed -i
 # because Docker does not permit the overwriting of inodes.
 sed "s/@ IN A .*/@ IN A $IP/" /zonefile | tee /zonefile.tmp >/dev/null
 
