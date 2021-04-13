@@ -1,2 +1,5 @@
 
 config/zones/coredns-keygen
+
+# Ignore dynamic zone file, because it will be changed by webhooks
+config/zones/example.com/db.example.com.dyn
