@@ -27,9 +27,9 @@ fi
 # because Docker does not permit the overwriting of inodes.
 sed "s/@ IN A .*/@ IN A $IP/" /zonefile | tee /zonefile.tmp >/dev/null
 
-# Get old serial from zonefile and increment value to new serial
+# Get old serial from zonefile and set value to current date/time stamp
 SERIAL_OLD=$(cat /zonefile.tmp | grep "; serial" | tr -dc '0-9')
-SERIAL_NEW=$((SERIAL_OLD+1))
+SERIAL_NEW=$(date +%Y%m%d%M%S)
 
 # Replace old serial with new value in temp zonefile
 sed -i "s/$SERIAL_OLD/$SERIAL_NEW/" /zonefile.tmp
