@@ -25,11 +25,11 @@ fi
 
 # Replace old IP from zonefile by new IP, use tee instead of sed -i
 # because Docker does not permit the overwriting of inodes.
-sed "s/@ IN A .*/@ IN A $IP/" /zonefile | tee /zonefile.tmp >/dev/null
+sed "s/@ IN A .*/@ IN A $IP/" /zonefile > /zonefile.tmp
 
 # Get old serial from zonefile and set value to current date/time stamp
 SERIAL_OLD=$(cat /zonefile.tmp | grep "; serial" | tr -dc '0-9')
-SERIAL_NEW=$(date +%Y%m%d%M)
+SERIAL_NEW=$(date +%y%m%d%H%M)
 
 # Ensure that new serial is always larger than previous one
 # (This could happen if there is more than one update per minute)
@@ -41,5 +41,5 @@ fi
 # Replace old serial with new value in temp zonefile
 sed -i "s/$SERIAL_OLD/$SERIAL_NEW/" /zonefile.tmp
 
-# Overrite old zonefile by temp zonefile
+# Overwrite old zonefile by temp zonefile
 cat /zonefile.tmp > /zonefile

@@ -16,4 +16,4 @@ $TTL 300
 @       3600            IN      NS      ns3.example.com.
 
 ; A / AAAA Records
-@ IN A 7.7.7.7
+@ IN A 192.0.2.2

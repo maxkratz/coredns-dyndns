@@ -19,5 +19,5 @@ dyn     3600            IN      NS      ns2.example.com.
 dyn     3600            IN      NS      ns3.example.com.
 
 ; A / AAAA Records
-*                       IN      A       1.2.3.4
-@                       IN      A       1.2.3.4
+*                       IN      A       192.0.2.1
+@                       IN      A       192.0.2.1
