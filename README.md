@@ -1,6 +1,7 @@
 # CoreDNS-DynDNS
 
 This repository holds some basic configurations to enable dynamic DNS updates in an authorative DNS-Server running [CoreDNS](https://github.com/coredns/coredns) without implementing a custom plugin.
+Therefore, this repsoitory "simulates" a [DynDNSv2](https://stackoverflow.com/questions/54039095/dyndns2-protocol-specification) endpoint.  
 Keep in mind that this is kind of a blueprint and not necessary production-ready.
 
 
@@ -12,23 +13,23 @@ Most *decent* routers allow to specify a custom URL with basic auth to send IP u
 The webhook provides such a URL and triggers a sh script that updates the dynamic zone file and boom - your dynamic IP updates are done.
 
 **In short (step-by-step):**
-1. Client receives a new dynamic IP address.
-1. Client sends a [cURL](https://curl.se/) query to the webhook container containing the new IP address.
-1. Webhook container triggers the sh script.
-1. Sh script updates the CoreDNS zone file -> Includes the new IP address and updates serial.
+1. The client receives a new dynamic IP address.
+1. The client sends a [cURL](https://curl.se/) query to the webhook container containing the new IP address.
+1. The webhook container triggers the sh script.
+1. The sh script updates the CoreDNS zone file --> Includes the new IP address and updates serial.
 1. CoreDNS automatically reloads the zone file and serves the new IP address.
 
-**Please notice:**
+**Please notice:**  
 The sh script checks if the provided parameter is a valid IPv4 address using a regex.
 Currently, the updating of IPv6 addresses is **not** supported.
 
 
 ## Configuration
 
-For the example configuration a [Docker-Compose](https://docs.docker.com/compose/) stack is used.
-Feel free to adapt the needed steps to e.g. a native installation (with binaries) (although Docker-Compose is running just fine for my personal setup).
+A [Docker-Compose](https://docs.docker.com/compose/) stack is used for the example configuration.
+Feel free to adapt the needed steps to, e.g., a native installation (with binaries) (although Docker-Compose is running just fine for my personal setup).
 
-- Adapt [htpasswd](./config/dynamic) to your needs. You need at least one valid entry with a username:password combination. The file is prefilled with the credential `example:0123456789` - Do not forget to change/remove that!
+- Adapt [htpasswd](./config/dynamic) to your needs. You need at least one valid entry with a *username:password* combination. The file is prefilled with the credential `example:0123456789` - Do not forget to change/remove that!
     - This file will be used by an nginx container to provide basic authentification.
 - Adapt [db.example.com](./config/zones/example.com/db.example.com) to match your root domain zone. In most cases, you already have such a file and can change the needed parameters in that. The needed parameters are already prefilled in the example file:
     - Three nameserver records for the root zone `example.com` --> These values will not change at all.
@@ -49,19 +50,19 @@ For an easy to use reverse proxy for Docker containers, check out [nginx-proxy](
 
 This example can easily be used to update a dynamic zone with your [OPNsense](https://opnsense.org/) router.
 
-In your OPNsense box go to *Services* -> *Dynamic DNS* and click on *(+) Add*.
+In your OPNsense box go to *Services* --> *Dynamic DNS* and click on *(+) Add*.  
 Configure the following settings:
 
-| Field                           | Value                                            | Explanation                                  |
-| ------------------------------- | ------------------------------------------------ | -------------------------------------------- |
-| *Enable*                        | Checked                                          | Enables this update client                   |
-| *Service type*                  | Custom                                           | -                                            |
-| *Interface to monitor*          | E.g. *WAN*                                       | Interface on which the dynamic IP occurs     |
-| *Interface to send update from* | E.g. *WAN*                                       | Same as *Service type*                       |
-| *Hostname*                      | dyn.example.com                                  | Your dynamic zone to update                  |
-| *Verbose logging*               | Unchecked                                        | May be checked for debugging purposes        |
-| *CURL options*                  | Both unchecked                                   | -                                            |
-| *Username*                      | example                                          | Your username for basic auth from *htpasswd* |
-| *Password*                      | 0123456789                                       | Your password for basic auth from *htpasswd* |
-| *Update URL*                    | https://dyn.ns1.example.com/hooks/update?ip=%IP% | Webhook URL to send IP update to             |
-| *Result Match*                  | [empty]                                          | -                                            |
+| Field                  | Value           | Explanation                                                                              |
+| ---------------------- | --------------- | ---------------------------------------------------------------------------------------- |
+| *Enable*               | Checked         | Enables this update client                                                               |
+| *Service type*         | Custom          | -                                                                                        |
+| *Protocol*             | DynDns2         | Sets URL to smth. like *https://host/nic/update?hostname=dyn.example.com&myip=192.0.2.1* |
+| *Username*             | example         | Your username for basic auth from *htpasswd*                                             |
+| *Password*             | 0123456789      | Your password for basic auth from *htpasswd*                                             |
+| *Wildcard*             | Unchecked       | -                                                                                        |
+| *Hostname(s)*          | dyn.example.com | Your dynamic zone to update                                                              |
+| *Check ip method*      | Interface       | You can also use some of the other provided methods                                      |
+| *Force SSL*            | Checked         | Uses HTTPS instead of HTTP                                                               |
+| *Interface to monitor* | E.g., *WAN*     | Interface on which the dynamic IP occurs                                                 |
+| *Description*          |                 | -                                                                                        |

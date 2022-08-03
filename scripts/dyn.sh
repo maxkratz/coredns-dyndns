@@ -4,12 +4,18 @@ set -e
 
 # Get IP from parameter
 IP=$1
+HOSTNAME=$2
 
-# Check if provided parameter was empty
+# Check if provided IP parameter was empty
 if [ -z "$IP" ]
 then
     echo "=> No IP provided. Aborting." >&2 
     exit 1;
+fi
+
+if [ ! -z "$HOSTNAME" ]
+then
+    echo "=> Hostname parameter: $HOSTNAME"
 fi
 
 # Check if IP is valid
@@ -20,7 +26,7 @@ then
     echo "=> Provided IP is not a valid IPv4 address. Aborting." >&2 
     exit 2;
 else
-    echo "=> Update ip to $IP."
+    echo "=> Update IP to $IP."
 fi
 
 # Replace old IP from zonefile by new IP, use tee instead of sed -i
