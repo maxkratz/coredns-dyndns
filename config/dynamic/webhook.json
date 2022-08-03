@@ -7,7 +7,7 @@
     [
       {
         "source": "query",
-        "name": "ip"
+        "name": "myip"
       },
       {
         "source": "query",

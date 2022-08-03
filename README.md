@@ -53,16 +53,16 @@ This example can easily be used to update a dynamic zone with your [OPNsense](ht
 In your OPNsense box go to *Services* --> *Dynamic DNS* and click on *(+) Add*.  
 Configure the following settings:
 
-| Field                  | Value           | Explanation                                                                            |
-| ---------------------- | --------------- | -------------------------------------------------------------------------------------- |
-| *Enable*               | Checked         | Enables this update client                                                             |
-| *Service type*         | Custom          | -                                                                                      |
-| *Protocol*             | DynDns2         | Sets URL to smth. like *https://host/nic/update?hostname=dyn.example.com&ip=192.0.2.1* |
-| *Username*             | example         | Your username for basic auth from *htpasswd*                                           |
-| *Password*             | 0123456789      | Your password for basic auth from *htpasswd*                                           |
-| *Wildcard*             | Unchecked       | -                                                                                      |
-| *Hostname(s)*          | dyn.example.com | Your dynamic zone to update                                                            |
-| *Check ip method*      | Interface       | You can also use some of the other provided methods                                    |
-| *Force SSL*            | Checked         | Uses HTTPS instead of HTTP                                                             |
-| *Interface to monitor* | E.g., *WAN*     | Interface on which the dynamic IP occurs                                               |
-| *Description*          |                 | -                                                                                      |
+| Field                  | Value           | Explanation                                                                              |
+| ---------------------- | --------------- | ---------------------------------------------------------------------------------------- |
+| *Enable*               | Checked         | Enables this update client                                                               |
+| *Service type*         | Custom          | -                                                                                        |
+| *Protocol*             | DynDns2         | Sets URL to smth. like *https://host/nic/update?hostname=dyn.example.com&myip=192.0.2.1* |
+| *Username*             | example         | Your username for basic auth from *htpasswd*                                             |
+| *Password*             | 0123456789      | Your password for basic auth from *htpasswd*                                             |
+| *Wildcard*             | Unchecked       | -                                                                                        |
+| *Hostname(s)*          | dyn.example.com | Your dynamic zone to update                                                              |
+| *Check ip method*      | Interface       | You can also use some of the other provided methods                                      |
+| *Force SSL*            | Checked         | Uses HTTPS instead of HTTP                                                               |
+| *Interface to monitor* | E.g., *WAN*     | Interface on which the dynamic IP occurs                                                 |
+| *Description*          |                 | -                                                                                        |
