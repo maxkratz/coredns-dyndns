@@ -29,10 +29,13 @@ then
     echo "badsys"
     # exit 2;
     exit 0;
-else
+# else
     # echo "=> Update IP to $IP."
-    echo "good"
+    # echo "good"
 fi
+
+# Get previous IP from zone file
+IP_OLD=$(grep '@ IN A ' /zonefile | cut -d\  -f4)
 
 # Replace old IP from zonefile by new IP, use tee instead of sed -i
 # because Docker does not permit the overwriting of inodes.
@@ -54,3 +57,10 @@ sed -i "s/$SERIAL_OLD/$SERIAL_NEW/" /zonefile.tmp
 
 # Overwrite old zonefile by temp zonefile
 cat /zonefile.tmp > /zonefile
+
+if [[ "$IP_OLD" == "$IP" ]]
+then
+    echo "nochg"
+else
+    echo "good"
+fi
