@@ -11,7 +11,8 @@ if [ -z "$IP" ]
 then
     # echo "=> No IP provided. Aborting." >&2
     echo "badsys"
-    exit 1;
+    # exit 1;
+    exit 0;
 fi
 
 # if [ ! -z "$HOSTNAME" ]
@@ -26,7 +27,8 @@ if [ -z "$VALID" ]
 then
     # echo "=> Provided IP is not a valid IPv4 address. Aborting." >&2
     echo "badsys"
-    exit 2;
+    # exit 2;
+    exit 0;
 else
     # echo "=> Update IP to $IP."
     echo "good"
