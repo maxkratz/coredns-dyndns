@@ -26,9 +26,7 @@ services:
 
   # webhook that triggers ip address update
   webhook:
-    # Version pinned due to this issue:
-    # https://github.com/almir/docker-webhook/issues/28
-    image: almir/webhook:2.8.0
+    image: almir/webhook:2.8.1
     command: -verbose -hooks=/etc/webhook/hooks.json -hotreload
     restart: unless-stopped
     volumes:
