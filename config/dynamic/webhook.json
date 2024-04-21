@@ -14,5 +14,17 @@
         "name": "hostname"
       }
     ]
+  },
+  {
+    "id": "le",
+    "execute-command": "/app/cng.sh",
+    "include-command-output-in-response": true,
+    "pass-arguments-to-command":
+    [
+      {
+        "source": "query",
+        "name": "value"
+      }
+    ]
   }
 ]
