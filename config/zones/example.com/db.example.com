@@ -3,7 +3,7 @@ $TTL 3600
 
 ; SOA Record
 @       3600            IN      SOA     ns1.example.com.   hostmaster.example.com. (
-                                2021012220      ; serial
+                                2021012221      ; serial
                                 7200            ; refresh (7200 = 2 hours)
                                 3600            ; retry (3600 = 1 hour)
                                 1209600         ; expire (1209600 = 2 weeks)
@@ -21,3 +21,7 @@ dyn     3600            IN      NS      ns3.example.com.
 ; A / AAAA Records
 *                       IN      A       192.0.2.1
 @                       IN      A       192.0.2.1
+
+; Lets Encrypt challenge
+;_acme-challenge IN TXT "a"
+_acme-challenge         IN      CNAME           _acme-challenge.dyn.example.com.

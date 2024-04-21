@@ -23,6 +23,7 @@ services:
     volumes:
       - './config/dynamic/default.conf:/etc/nginx/conf.d/default.conf:ro'
       - './config/dynamic/htpasswd:/etc/nginx/conf.d/htpasswd:ro'
+      - './config/dynamic/htpasswd_le:/etc/nginx/conf.d/htpasswd_le:ro'
 
   # webhook that triggers ip address update
   webhook:
@@ -32,4 +33,5 @@ services:
     volumes:
       - './config/dynamic/webhook.json:/etc/webhook/hooks.json:ro'
       - './scripts/dyn.sh:/app/dyn.sh:ro'
+      - './scripts/cng.sh:/app/cng.sh:ro'
       - './config/zones/example.com/db.example.com.dyn:/zonefile'
